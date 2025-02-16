@@ -1,0 +1,39 @@
+version: “3.9”
+services:
+  # proxy:
+  #   container_name: fullstack-proxy
+  #   build: ./docker/nginx
+  #   ports:
+  #     - "8000:80"
+  #   volumes:
+  #     - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+  #     - ../backend:/usr/share/nginx/html
+
+  app:
+    container_name: app-next-site
+    build: 
+      context: ../
+      dockerfile: app-next-site-infra/docker/node/Dockerfile
+    image: node
+    volumes:
+      - ../app-next-site:/var/www/html
+    ports:
+      - "3000:3000"
+    command: npm run dev
+
+  # db:
+  #   container_name: fullstack-db
+  #   build: ./docker/mysql
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+  #     - fullstack-db-volume:/var/lib/mysql
+  #   environment:
+  #     MYSQL_DATABASE: fullstack_db
+  #     MYSQL_ROOT_PASSWORD: just1nnext
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: password
+
+volumes:
+  app-next-site-volume:
